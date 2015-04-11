@@ -39,6 +39,11 @@ namespace MeliSample
 			return symbol;
 		}
 
+        protected void AddToCompareList_Click(object sender, EventArgs e)
+        {
+
+        }
+
 	}
 }
 

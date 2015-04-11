@@ -1,5 +1,9 @@
-<%@ Page Language="C#" Inherits="MeliSample.ProductDetails" %>
+<%@ Page Language="C#" Inherits="MeliSample.ProductDetails" CodeBehind="~/ProductDetails.aspx.cs"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<script runat="server">
+
+</script>
+
 
 <html>
 <head runat="server">
@@ -23,7 +27,7 @@
 
 <script>
 
- $(window).load(function() {
+ $(document).ready(function(){
  	 var foo = $("#example").carousel(); 
  });
 
@@ -60,6 +64,8 @@
 				
 				<% string curr = TransformCurrency(Item.currency_id); %>  
 				<p><strong class="ch-price"> <%= curr %>  <%=  Item.price %></strong></p>
+
+                <asp:LinkButton ID="AddToCompareList" runat="server" OnClick="AddToCompareList_Click"></asp:LinkButton>
 				
 				<p>Condition: <%= Item.condition %> </p>	
 				
