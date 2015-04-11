@@ -9,6 +9,7 @@ namespace MeliSample.Models
     public class Product
     {
         public string id { get; set; }
+        public string category_level_2 { get; set; }
         public string site_id { get; set; }
         public string title { get; set; }
         public string subtitle { get; set; }
