@@ -3,6 +3,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
+using MeliSample.Models;
 
 namespace MeliSample
 {
@@ -37,6 +38,11 @@ namespace MeliSample
 			}
 			return symbol;
 		}
+
+        protected void AddToCompareList_Click(object sender, EventArgs e)
+        {
+
+        }
 
 	}
 }

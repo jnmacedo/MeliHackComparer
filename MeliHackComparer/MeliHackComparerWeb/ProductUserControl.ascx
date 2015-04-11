@@ -1,14 +1,19 @@
 <%@ Control Language="C#" Inherits="MeliSample.ProductUserControl" %>
+<script runat="server">
+
+</script>
+
 
 
 <table class="ch-datagrid">
     <thead>
         <tr>
         	<th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Condition</th>
-            <th scope="col">Price</th>
-            <th scope="col">Due Date</th>
+            <th scope="col">Título</th>
+            <th scope="col">Condición</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Fecha de fin</th>
+            <th scope="col">Lista de comparación</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +32,8 @@
 			
 			<% string endTime = TransformDate(item.stop_time); %> 
 			<td> <%= endTime %></td>
+			<td> <asp:LinkButton ID="AddToCompareListButton" runat="server" OnClick="AddToCompareList_Click" CommandName="item" CommandArgument="<%=item.id %>"><img src="img/compare.png" alt="compare" width="64" height="64"/></asp:LinkButton></td>
+            <%# Eval("OrganisationID") %>
 		</tr>
 		<%}%>
 	</tbody>
