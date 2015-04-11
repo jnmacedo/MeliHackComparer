@@ -3,6 +3,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
+using MeliSample.Models;
 
 namespace MeliSample
 {
