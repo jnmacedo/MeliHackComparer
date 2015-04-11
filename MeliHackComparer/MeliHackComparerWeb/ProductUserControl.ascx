@@ -1,42 +1,56 @@
-<%@ Control Language="C#" Inherits="MeliSample.ProductUserControl" %>
+<%@ Control Language="C#" Inherits="MeliSample.ProductUserControl" CodeBehind="~/ProductUserControl.ascx.cs" %>
+<%@ Import Namespace="System.Data" %>
+
 <script runat="server">
 
 </script>
 
+<asp:UpdatePanel ID="UpdateResults" runat="server">
+    <ContentTemplate>
+        <asp:ScriptManager ID="UpdateResultsSM" runat="server"></asp:ScriptManager>
+        <table class="ch-datagrid">
+            <tbody>
+                <asp:Repeater id="ProductSearchRepeater" runat="server" OnItemCommand="ItemCommand">
 
+                    <HeaderTemplate>
+                        <tr>
+        	                <th scope="col"></th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Condición</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Fecha de fin</th>
+                            <th scope="col">Lista de comparación</th>
+                        </tr>
+                    </HeaderTemplate>
 
-<table class="ch-datagrid">
-    <thead>
-        <tr>
-        	<th scope="col"></th>
-            <th scope="col">Título</th>
-            <th scope="col">Condición</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Fecha de fin</th>
-            <th scope="col">Lista de comparación</th>
-        </tr>
-    </thead>
-    <tbody>
-		<% foreach(var item in SearchItems) { %>
-		<tr>
-			<td><img src="<%= item.thumbnail %>" alt="item image" /> </td> 
+                    <ItemTemplate>
+		            <tr>
+			            <td><img src="<%#Eval("thumbnail")%>" alt="item image" /> </td> 
 			
-			<td>
-			  <a href="ProductDetails.aspx?productID=<%=item.id %>"><%= item.title %></a> 
-			</td>
+			            <td>
+			              <a href="ProductDetails.aspx?productID=<%#Eval("id")%>"><%#Eval("title")%></a> 
+			            </td>
 			
-			<td> <%= item.condition %> </td>
+			            <td> <%#Eval("condition")%> </td>
 			
-			<% string curr = TransformCurrency(item.currency_id); %>  
-			<td> <p><strong class="ch-price"> <%= curr %>  <%= item.price %></strong></p> </td>
+			            <%-- string curr = TransformCurrency(Eval("currency_id").ToString()); --%>
+			            <td> <p><strong class="ch-price"> <%# TransformCurrency(Eval("currency_id").ToString()) %>  <%#Eval("price")%></strong></p> </td>
 			
-			<% string endTime = TransformDate(item.stop_time); %> 
-			<td> <%= endTime %></td>
-			<td> <asp:LinkButton ID="AddToCompareListButton" runat="server" OnClick="AddToCompareList_Click" CommandName="item" CommandArgument="<%=item.id %>"><img src="img/compare.png" alt="compare" width="64" height="64"/></asp:LinkButton></td>
-            <%# Eval("OrganisationID") %>
-		</tr>
-		<%}%>
-	</tbody>
-</table>
+			            <%-- string endTime = TransformDate((string)Eval("stop_time")); --%> 
+			            <td> <%# TransformDate((string)Eval("stop_time")) %></td>
+			            <td>
+                            <asp:LinkButton CommandName="ItemCommand" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "id") %>' runat="server"><img src="img/compare.png" alt="compare" width="64" height="64"/></asp:LinkButton> 
+                            <%--asp:LinkButton ID="AddToCompareListButton" runat="server" OnClick="AddToCompareList_Click"><img src="img/compare.png" alt="compare" width="64" height="64"/></asp:LinkButton--%>
 
-There are <%= this.Results %> results of this item.  
+			            </td>
+            
+		            </tr>
+                    </ItemTemplate>
+
+                </asp:Repeater>
+	        </tbody>
+        </table>
+
+        There are <%= this.Results %> results of this item.  
+    </ContentTemplate>
+</asp:UpdatePanel>

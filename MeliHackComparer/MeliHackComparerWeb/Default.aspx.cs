@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
 using MeliSample.Models;
+using System.Web.UI.WebControls;
 
 namespace MeliSample
 {
@@ -12,27 +13,12 @@ namespace MeliSample
 
 		private MeliService ms;
 
-		private List<Sites> sites;
-
-		private void populateDropDownListSites ()
-		{
-			DDLsites.Items.Clear();
-			DDLsites.DataSource = sites;
-			DDLsites.DataBind();
-
-			populateDropDownListCategories();
-		}
 
 		private void populateDropDownListCategories ()
 		{
 			DDLcategories.Items.Clear();
-			DDLcategories.DataSource = ms.GetCatergories(DDLsites.SelectedItem.Value);
+			DDLcategories.DataSource = ms.GetCatergories("MLU");
 			DDLcategories.DataBind();
-		}
-
-		public virtual void updateCategories (object sender, EventArgs e)
-		{
-			populateDropDownListCategories();
 		}
 
 		protected override void OnLoad (EventArgs e)
@@ -40,20 +26,21 @@ namespace MeliSample
 			base.OnLoad (e);
 		
 			ms = MeliService.GetService();
-			sites = ms.GetSites();
 
-			if (!IsPostBack) 
-			{
-				populateDropDownListSites();
-			}
+            if (!IsPostBack)
+            {
+                populateDropDownListCategories();
+            }
 		}
 
 		public virtual void btnSearchClicked (object sender, EventArgs args)
 		{
-			ProductUserControl productUserControl = (ProductUserControl)LoadControl("~/ProductUserControl.ascx");
+			ProductUserControl productUserControl = PUC;
 			productUserControl.ListCurrency = ms.GetCurrency();
-			productUserControl.SearchItems = ms.Search(textInput.Text, DDLsites.SelectedItem.Value,DDLcategories.SelectedItem.Value);
-			resultsPlaceHolder.Controls.Add(productUserControl);
+			productUserControl.SearchItems = ms.Search(textInput.Text, "MLU",DDLcategories.SelectedItem.Value);
+            PUC.BindRepeater();
+            //PUC.DataBind();
+			//resultsPlaceHolder.Controls.Add(productUserControl);
 		}
 
 		public virtual void btnAccessClicked (object sender, EventArgs args)

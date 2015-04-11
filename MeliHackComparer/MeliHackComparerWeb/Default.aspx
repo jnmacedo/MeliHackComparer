@@ -1,7 +1,8 @@
-<%@ Page Language="C#" Inherits="MeliSample.Default" %>
-<%@ Reference Control="~/ProductUserControl.ascx" %>
+<%@ Page Language="C#" Inherits="MeliSample.Default" CodeBehind="~/Default.aspx.cs" %>
+<%@ Register TagPrefix="meli" TagName="ProductUserControl" Src="~/ProductUserControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
 <html>
 <head runat="server">
 	<title>Meli Sample .NET</title>
@@ -46,13 +47,13 @@
 		
 		<div class="ch-box-lite ch-g6-10">
 			<h2>Search</h2>
-			<asp:DropDownList id="DDLsites" runat="server" AutoPostBack="True" onselectedindexchanged="updateCategories" datavaluefield="id" datatextfield="name"/>
 			<asp:DropDownList id="DDLcategories" runat="server" datavaluefield="id" datatextfield="name"/>
 			<asp:TextBox id="textInput" runat="server" />
 	    	<asp:Button id="btnSearch" runat="server" Text="Search" OnClick="btnSearchClicked" CssClass="ch-btn"/>
     	</div>
     	
-		<asp:PlaceHolder runat="server" ID="resultsPlaceHolder" />
+        <meli:ProductUserControl ID="PUC" runat="server"></meli:ProductUserControl>
+		<%--asp:PlaceHolder runat="server" ID="resultsPlaceHolder" /--%>
 		
 	</form>
 	

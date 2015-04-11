@@ -4,11 +4,23 @@ using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
 using MeliSample.Models;
+using System.Web.UI.WebControls;
+using Newtonsoft.Json;
 
 namespace MeliSample
 {
 	public partial class ProductUserControl : System.Web.UI.UserControl
 	{
+        protected void Page_Load(object sender, EventArgs e) 
+        {
+
+        }
+
+        public void BindRepeater() {
+            
+            ProductSearchRepeater.DataSource = SearchItems;
+            ProductSearchRepeater.DataBind();
+        }
 
 		public List<Currency> ListCurrency { get; set; }
 
@@ -39,10 +51,13 @@ namespace MeliSample
 			return symbol;
 		}
 
-        protected void AddToCompareList_Click(object sender, EventArgs e)
+        protected void ItemCommand(Object Sender, RepeaterCommandEventArgs e)
         {
-
+            string productID = (string)e.CommandArgument;
+            //Product GetProduct(productID);
+            //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(json);
         }
+
 
 	}
 }
