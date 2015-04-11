@@ -12,7 +12,17 @@ namespace MeliSample
 	{
 		private MeliService ms;
 
-		public ItemObject Item { get; set; }
+        public ItemObject Item
+        {
+            get
+            {
+                return (ItemObject)Session["ProductDetail"];
+            }
+            set
+            {
+                Session["ProductDetail"] = value;
+            }
+        }
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -41,7 +51,9 @@ namespace MeliSample
 
         protected void AddToCompareList_Click(object sender, EventArgs e)
         {
-
+            WhishListHandler handler = new WhishListHandler();
+            handler.AddProductToWhishList(Item);
+            //handler.GetProductById()
         }
 
 	}

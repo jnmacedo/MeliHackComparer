@@ -1,10 +1,6 @@
 <%@ Control Language="C#" Inherits="MeliSample.ProductUserControl" CodeBehind="~/ProductUserControl.ascx.cs" %>
 <%@ Import Namespace="System.Data" %>
 
-<script runat="server">
-
-</script>
-
 <asp:UpdatePanel ID="UpdateResults" runat="server">
     <ContentTemplate>
         <asp:ScriptManager ID="UpdateResultsSM" runat="server"></asp:ScriptManager>
