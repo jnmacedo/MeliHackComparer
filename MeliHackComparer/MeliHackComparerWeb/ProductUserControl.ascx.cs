@@ -6,14 +6,43 @@ using System.Collections.Generic;
 using MeliSample.Models;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace MeliSample
 {
-	public partial class ProductUserControl : System.Web.UI.UserControl
+    public partial class ProductUserControl : GenericUserControl
 	{
+
+        public List<Product> SearchItems
+        {
+            get
+            {
+                if (HttpContext.Current.Session["SearchItems"] == null) HttpContext.Current.Session["SearchItems"] = new List<Product>();
+                return (List<Product>)HttpContext.Current.Session["SearchItems"];
+            }
+            set
+            {
+                HttpContext.Current.Session["SearchItems"] = value;
+            }
+        }
+
+        public List<Currency> ListCurrency
+        {
+            get
+            {
+                if (HttpContext.Current.Session["ListCurrency"] == null) HttpContext.Current.Session["ListCurrency"] = new List<Product>();
+                return (List<Currency>)HttpContext.Current.Session["ListCurrency"];
+            }
+            set
+            {
+                HttpContext.Current.Session["ListCurrency"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e) 
         {
-
+            PreSelectedLink.InnerText = "Lista de artículos pre-seleccionados (" + Handler.WhishList(Session["Category"].ToString()).Count + ")";
+            if (!IsPostBack)
+                resultsDiv.Visible = false;
         }
 
         public void BindRepeater() {
@@ -22,16 +51,10 @@ namespace MeliSample
             ProductSearchRepeater.DataBind();
         }
 
-		public List<Currency> ListCurrency { get; set; }
-
-		public List<Product> SearchItems { get; set; }
-	
 		public int Results { get; set; }
 
 		public ProductUserControl ()
 		{
-			SearchItems = new List<Product>();
-			ListCurrency = new List<Currency>();
 		}
 
 		public string TransformDate(string date)
@@ -53,12 +76,53 @@ namespace MeliSample
 
         protected void ItemCommand(Object Sender, RepeaterCommandEventArgs e)
         {
-            string productID = (string)e.CommandArgument;
-            //Product GetProduct(productID);
-            //Product deserializedProduct = JsonConvert.DeserializeObject<Product>(json);
+            string[] split = ((string)e.CommandArgument).Split(',');
+            string productID = split[0];
+            bool in_whishlist = bool.Parse(split[1]);
+
+            if (in_whishlist)
+            {
+                Handler.RemoveProductFromWhishList(productID);
+
+                Product searchProduct = GetProductFromSearchResults(productID);
+                searchProduct.in_whishlist = false;
+
+                PreSelectedLink.InnerText = "Lista de artículos pre-seleccionados (" + Handler.WhishList(Session["Category"].ToString()).Count + ")";
+            }
+            else
+            {
+                MeliService ms = MeliService.GetService();
+                ItemObject product = ms.GetProduct(productID);
+
+                bool pertenece = Handler.IsProductInWishList(productID);
+                if (!pertenece)
+                {
+                    Handler.AddProductToWhishList(product);
+                    Product searchProduct = GetProductFromSearchResults(productID);
+                    searchProduct.in_whishlist = true;
+                }
+            }
+            PreSelectedLink.InnerText = "Lista de artículos pre-seleccionados (" + Handler.WhishList(Session["Category"].ToString()).Count + ")";
+            
+            BindRepeater();
         }
 
+        protected Product GetProductFromSearchResults(string id)
+        {
+            return SearchItems.SingleOrDefault(p => p.id == id);
 
+        }
+
+        protected void ProductSearchRepeater_ItemCreated(object sender, RepeaterItemEventArgs e)
+        {
+            //Inside ItemCreatedEvent
+            ScriptManager scriptMan = UpdateResultsSM;
+            LinkButton addBtn = e.Item.FindControl("AddToListButton") as LinkButton;
+            if (addBtn != null)
+            {
+                scriptMan.RegisterAsyncPostBackControl(addBtn);
+            }
+        }
 	}
 }
 

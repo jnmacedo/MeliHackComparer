@@ -29,9 +29,9 @@ namespace MeliSample.Models
 
     public class Ratings
     {
-        public int positive { get; set; }
-        public int negative { get; set; }
-        public int neutral { get; set; }
+        public decimal positive { get; set; }
+        public decimal negative { get; set; }
+        public decimal neutral { get; set; }
     }
 
     public class Transactions

@@ -29,6 +29,17 @@ namespace MeliSample.Models
         public SellerAddress seller_address { get; set; }
         public List<object> attributes { get; set; }
 
+        public bool in_whishlist { get; set; }
+
+        public string src_wl_image
+        {
+            get
+            {
+                if (in_whishlist) return "img/compare_enabled.png";
+                else return "img/compare_disabled.png";
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("[RootObject: id={0}, site_id={1}, title={2}, subtitle={3}]", id, site_id, title, subtitle);

@@ -1,16 +1,15 @@
-<%@ Page Language="C#" Inherits="MeliSample.Default" CodeBehind="~/Default.aspx.cs" %>
-<%@ Register TagPrefix="meli" TagName="ProductUserControl" Src="~/ProductUserControl.ascx" %>
+ï»¿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="MeliSample.Home" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Básico de Boostrap -->
+    <!-- BÃ¡sico de Boostrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
    
     
@@ -35,39 +34,50 @@
 	
 	<link rel="stylesheet" href="~/css/chico-0.12.2.css" />
 	<link rel="stylesheet" href="~/css/chico-mesh.css" />
-	
-	
 </head>
-
 <body class="lorem-ipsum">
     <div class="headerdummy">
         <div class="ml-header-inner">        
-            <a href="/Home.aspx">
+            <a href="#">
                 <h1 class="ml-logo"></h1>
             </a>
             <div class="page-title-dummy">
-                Pre-Selección
+                Lorem-Ipsum
             </div>
         </div>  
     </div>
-	
-<%--	<h1 class="title_h1"></h1>
-	<h2 class="title_h2">Pre-Selección</h2>--%>
-	<div class="clear"></div>
+    <form id="form1" runat="server">
+        <div class="row spot_margin">
+            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <figure class="figure-home">
+                    <asp:LinkButton runat="server" ID="btnAutos" OnClick="btnAutos_Click" Text="">
+                        <img src="img/CAMARO_ROJO.jpg" />
+                    </asp:LinkButton>
+                    <div class="figure-caption">
+                        Autos o Camionetas
+                    </div>
+                </figure>
+            </div>
 
-            <form id="searchForm" runat="server">
-		
-		    <div class="ch-box-lite ch-g10-10">
-			    <h2 style="display:inline-block;">Buscar</h2>
-			    <%--<asp:DropDownList id="DDLcategories" runat="server" datavaluefield="id" datatextfield="name"/>--%>
-			    <asp:TextBox id="textInput" runat="server" />
-	    	    <asp:Button id="btnSearch" runat="server" Text="Search" OnClick="btnSearchClicked" CssClass="ch-btn"/>
-    	    </div>
-    	
-            <meli:ProductUserControl ID="PUC" runat="server"></meli:ProductUserControl>
-		    <%--asp:PlaceHolder runat="server" ID="resultsPlaceHolder" /--%>
-		
-	    </form>
-	
+            <div class="col-sm-6">
+                <figure class="figure-home">
+                    <asp:LinkButton runat="server" ID="btnCasas" OnClick="btnCasas_Click" Text="">
+                        <img src="img/apartamento_piscina.jpg" />
+                    </asp:LinkButton>
+                    <div class="figure-caption">
+                        Inmuebles (Casas y Apartamentos) 
+                    </div>
+                </figure>
+            </div>
+            </div>
+        </div>
+        <div class="buttons-dummys">
+            
+            
+        </div>
+    </form>
+
+
 </body>
 </html>

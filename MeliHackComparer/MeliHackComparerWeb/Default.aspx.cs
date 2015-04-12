@@ -8,40 +8,49 @@ using System.Web.UI.WebControls;
 
 namespace MeliSample
 {
-	public partial class Default : System.Web.UI.Page
+	public partial class Default : GenericPage
 	{
 
 		private MeliService ms;
 
-
-		private void populateDropDownListCategories ()
-		{
-			DDLcategories.Items.Clear();
-			DDLcategories.DataSource = ms.GetCatergories("MLU");
-			DDLcategories.DataBind();
-		}
+        private string Category
+        {
+            get
+            {
+                return (string)Session["Category"];
+            }
+        }
 
 		protected override void OnLoad (EventArgs e)
 		{
 			base.OnLoad (e);
-		
-			ms = MeliService.GetService();
 
-            if (!IsPostBack)
+            ms = MeliService.GetService();
+            string sessionSearch = (string)Session["Category"];
+            if (string.IsNullOrEmpty(sessionSearch))
             {
-                populateDropDownListCategories();
+                Response.Redirect("/Home.aspx");
             }
 		}
 
 		public virtual void btnSearchClicked (object sender, EventArgs args)
 		{
-			ProductUserControl productUserControl = PUC;
-			productUserControl.ListCurrency = ms.GetCurrency();
-			productUserControl.SearchItems = ms.Search(textInput.Text, "MLU",DDLcategories.SelectedItem.Value);
-            PUC.BindRepeater();
+            PerformSearch();
             //PUC.DataBind();
 			//resultsPlaceHolder.Controls.Add(productUserControl);
 		}
+
+        private void PerformSearch()
+        {
+            ProductUserControl productUserControl = PUC;
+            productUserControl.ListCurrency = ms.GetCurrency();
+            productUserControl.SearchItems = ms.Search(textInput.Text, "MLU", Category);
+            foreach (Product p in productUserControl.SearchItems)
+            {
+                p.in_whishlist = Handler.IsProductInWishList(p.id);
+            }
+            PUC.BindRepeater();
+        }
 
 		public virtual void btnAccessClicked (object sender, EventArgs args)
 		{

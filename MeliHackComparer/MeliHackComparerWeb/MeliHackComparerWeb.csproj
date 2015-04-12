@@ -23,6 +23,10 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -43,27 +47,64 @@
     <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="net-sdk, Version=1.0.4709.33230, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\net-sdk.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=103.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="net-sdk">
-      <HintPath>..\MeliSample\lib\net-sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\MeliSample\lib\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-theme.css" />
+    <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\carousel.css" />
+    <Content Include="css\custom.css" />
+    <Content Include="css\navbar.css" />
+    <Content Include="css\sticky-footer.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="img\compare.png" />
+    <Content Include="Home.aspx" />
+    <Content Include="img\apartamento_piscina.jpg" />
+    <Content Include="img\auto01.jpg" />
+    <Content Include="img\auto02.jpg" />
+    <Content Include="img\autoIcon.jpg" />
+    <Content Include="img\CAMARO_ROJO.jpg" />
+    <Content Include="img\casaIcon.jpg" />
+    <Content Include="img\compare_disabled.png" />
+    <Content Include="img\compare_enabled.png" />
+    <Content Include="img\loading-2013.gif" />
+    <Content Include="img\logo-mercadolibre-new.png" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\custom.js" />
+    <Content Include="js\html5shiv.min.js" />
+    <Content Include="js\ie-emulation-modes-warning.js" />
+    <Content Include="js\ie10-viewport-bug-workaround.js" />
+    <Content Include="js\ie8-responsive-file-warning.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\npm.js" />
+    <Content Include="js\respond.min.js" />
+    <Content Include="libs\net-sdk.dll" />
+    <Content Include="libs\Newtonsoft.Json.dll" />
+    <Content Include="libs\RestSharp.dll" />
+    <Content Include="PreSelectedList.aspx" />
     <Content Include="web.config" />
     <Content Include="assets\icons.png" />
     <Content Include="assets\loading-big.gif" />
@@ -83,6 +124,12 @@
     <Content Include="ProductUserControl.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GenericPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -93,7 +140,17 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attributes.cs" />
+    <Compile Include="Models\AttributeComparison.cs" />
     <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CategoryDetails.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Description.cs" />
     <Compile Include="Models\GeoLocation.cs" />
@@ -104,6 +161,13 @@
     <Compile Include="Models\Sites.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WhishListHandler.cs" />
+    <Compile Include="PreSelectedList.aspx.cs">
+      <DependentUpon>PreSelectedList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PreSelectedList.aspx.designer.cs">
+      <DependentUpon>PreSelectedList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProductUserControl.ascx.cs">
       <DependentUpon>ProductUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,5 +221,12 @@
     <None Include="assets\icons.svg" />
     <None Include="assets\icons.ttf" />
     <None Include="assets\icons.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="css\bootstrap-theme.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <None Include="melihack.pubxml" />
   </ItemGroup>
 </Project>

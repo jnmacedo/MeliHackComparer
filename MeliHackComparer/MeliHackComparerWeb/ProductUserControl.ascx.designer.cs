@@ -13,6 +13,15 @@ namespace MeliSample {
     public partial class ProductUserControl {
         
         /// <summary>
+        /// Control UpdateProgress.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress UpdateProgress;
+        
+        /// <summary>
         /// Control UpdateResults.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace MeliSample {
         protected global::System.Web.UI.ScriptManager UpdateResultsSM;
         
         /// <summary>
+        /// Control PreSelectedLink.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor PreSelectedLink;
+        
+        /// <summary>
         /// Control ProductSearchRepeater.
         /// </summary>
         /// <remarks>
@@ -38,5 +56,14 @@ namespace MeliSample {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater ProductSearchRepeater;
+        
+        /// <summary>
+        /// Control resultsDiv.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultsDiv;
     }
 }

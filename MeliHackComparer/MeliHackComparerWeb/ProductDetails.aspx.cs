@@ -8,7 +8,7 @@ using MeliSample.Models;
 
 namespace MeliSample
 {
-	public partial class ProductDetails : System.Web.UI.Page
+	public partial class ProductDetails : GenericPage
 	{
 		private MeliService ms;
 
@@ -51,9 +51,20 @@ namespace MeliSample
 
         protected void AddToCompareList_Click(object sender, EventArgs e)
         {
-            WhishListHandler handler = new WhishListHandler();
-            handler.AddProductToWhishList(Item);
-            //handler.GetProductById()
+            bool pertenece = Handler.IsProductInWishList(Item.id);
+            if (pertenece)
+            {
+                Handler.RemoveProductFromWhishList(Item.id);
+            }
+            else
+            {
+                Handler.AddProductToWhishList(Item);
+            }
+            string category = Handler.GetCategoryLevel2(Item.id);
+            List<string> categories = Handler.GetCategories();
+            var b = Handler.GetProductIdList();
+            var d = Handler.WhishList();
+            var f = Handler.WhishList(category);
         }
 
 	}

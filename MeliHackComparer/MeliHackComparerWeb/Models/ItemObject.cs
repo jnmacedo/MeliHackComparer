@@ -12,6 +12,7 @@ namespace MeliSample.Models
         public string site_id { get; set; }
         public string title { get; set; }
         public string subtitle { get; set; }
+        public UserObject seller { get; set; }
         public int seller_id { get; set; }
         public string category_id { get; set; }
         public int price { get; set; }
@@ -48,5 +49,18 @@ namespace MeliSample.Models
         public string parent_item_id { get; set; }
         public string date_created { get; set; }
         public string last_updated { get; set; }
+
+        public bool BelongsToCategory(string category)
+        {
+            MeliService ms = MeliService.GetService();
+            bool belongs = false;
+            List<Categories> categories = ms.GetCategoryDetails(this.category_id);
+            int i = 0;
+            while(!belongs && i<categories.Count)
+            {
+                belongs = categories[i++].id == category;
+            }
+            return belongs;
+        }
     }
 }
